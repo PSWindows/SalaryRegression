@@ -48,12 +48,15 @@ input_data = pd.DataFrame({
 })
 
 # One-hot encode 'Geography'
-# One-hot encode 'Geography'
 geo_encoded = onehot_encoder_geo.transform([[geography]]).toarray()
 geo_encoded_df = pd.DataFrame(geo_encoded, columns=onehot_encoder_geo.get_feature_names_out(['Geography']))
 
 # Combine one-hot encoded columns with input data
 input_data = pd.concat([input_data.reset_index(drop=True), geo_encoded_df], axis=1)
+
+# Ensure the column order matches what the scaler expects
+expected_columns = ['CreditScore', 'gender', 'Age', 'Tenure', 'Balance', 'NumOfProducts', 'HasCrCard', 'IsActiveMember', 'Exited'] + list(geo_encoded_df.columns)
+input_data = input_data[expected_columns]
 
 # Scale the input data
 input_data_scaled = scaler.transform(input_data)
@@ -63,6 +66,3 @@ prediction = model.predict(input_data_scaled)
 prediction_salary = prediction[0][0]
 
 st.write(f'Predicted Estimated Salary: {prediction_salary:.2f}')
-
-print('asif')
-
