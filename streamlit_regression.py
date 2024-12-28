@@ -32,7 +32,6 @@ credit_score = st.number_input('Credit Score')
 tenure = st.slider('Tenure', 0, 10)
 num_of_products = st.slider('Number of Products', 1, 4)
 has_cr_card = st.selectbox('Has Credit Card', [0, 1])
-num_of_products = st.slider('Number of Products', 1, 4)
 is_active_member = st.selectbox('Is Active Member', [0, 1]) 
 
 # Prepare the input data
